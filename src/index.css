@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Noto+Sans+KR:wght@300;400;500;700;800&family=Noto+Serif+KR:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-dark-950 text-white font-sans antialiased;
+  }
+
+  ::selection {
+    @apply bg-primary-500 text-white;
+  }
+}
+
+@layer utilities {
+  .word-keep-all {
+    word-break: keep-all;
+    word-wrap: break-word;
+  }
+
+  /* Dark Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-dark-950;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-dark-700 rounded-full hover:bg-dark-600 transition-colors;
+  }
+
+  .bg-300\% {
+    background-size: 300% 300%;
+  }
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient {
+  animation: gradient 8s ease infinite;
+}
+
+@keyframes text-shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-text-shimmer {
+  background: linear-gradient(to right,
+      #7d31ff 20%,
+      #ec4899 40%,
+      #ffffff 50%,
+      #ec4899 60%,
+      #7d31ff 80%);
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: text-shimmer 3s linear infinite;
+}
+
+.glass-card {
+  @apply bg-dark-900/40 backdrop-blur-xl border border-white/10 shadow-glass;
+}
+
+.glass-card:hover {
+  @apply bg-dark-800/60 border-primary-500/50 shadow-neon;
+}
