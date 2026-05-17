@@ -17,23 +17,20 @@ const ApplyPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const FORMSUBMIT_URL = "https://formsubmit.co/yundu0112@gmail.com";
+
+        const scheduleText = Array.from(selectedSlots).map(slot => {
+            const [dayIdx, hour] = slot.split('-').map(Number);
+            return { dayIdx, hour, label: `${days[dayIdx]}요일 ${hour}시` };
+        }).sort((a, b) => a.dayIdx !== b.dayIdx ? a.dayIdx - b.dayIdx : a.hour - b.hour)
+            .map(item => item.label).join(', ') || "선택된 시간 없음";
+
+        const data = new FormData();
+        data.append('form-name', 'apply');
+        Object.entries(formData).forEach(([key, value]) => data.append(key, value));
+        data.append('schedule', scheduleText);
+
         try {
-            const response = await fetch(FORMSUBMIT_URL, {
-                method: "POST",
-                headers: { "Content-Type": "application/json", "Accept": "application/json" },
-                body: JSON.stringify({
-                    ...formData,
-                    schedule: Array.from(selectedSlots).map(slot => {
-                        const [dayIdx, hour] = slot.split('-').map(Number);
-                        return { dayIdx, hour, label: `${days[dayIdx]}요일 ${hour}시` };
-                    }).sort((a, b) => a.dayIdx !== b.dayIdx ? a.dayIdx - b.dayIdx : a.hour - b.hour)
-                        .map(item => item.label).join(', ') || "선택된 시간 없음",
-                    _subject: `[신청] ${formData.name}님 데이터 분석 트레이닝 신청`,
-                    _template: "table",
-                    _captcha: "false"
-                })
-            });
+            const response = await fetch('/', { method: 'POST', body: data });
             if (response.ok) {
                 setIsSubmitted(true);
                 setFormData({ name: '', email: '', phone: '', birthdate: '', gender: '', message: '', codingLevel: 0, comment: '', location: '', education: '' });
