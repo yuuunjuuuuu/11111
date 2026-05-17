@@ -1,11 +1,14 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
 
 const ApplyPage = () => {
+    const [searchParams] = useSearchParams();
     const [formData, setFormData] = useState({ name: '', email: '', phone: '', birthdate: '', gender: '', message: '', codingLevel: 0, comment: '', location: '', education: '' });
     const [selectedSlots, setSelectedSlots] = useState(new Set());
-    const [isSubmitted, setIsSubmitted] = useState(false);
+    const isSubmitted = searchParams.get('submitted') === 'true';
+    const scheduleRef = useRef(null);
 
     const days = ['월', '화', '수', '목', '금', '토', '일'];
     const hours = Array.from({ length: 24 }, (_, i) => i);
@@ -15,38 +18,13 @@ const ApplyPage = () => {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
+    const handlePreSubmit = () => {
         const scheduleText = Array.from(selectedSlots).map(slot => {
             const [dayIdx, hour] = slot.split('-').map(Number);
             return { dayIdx, hour, label: `${days[dayIdx]}요일 ${hour}시` };
         }).sort((a, b) => a.dayIdx !== b.dayIdx ? a.dayIdx - b.dayIdx : a.hour - b.hour)
             .map(item => item.label).join(', ') || "선택된 시간 없음";
-
-        try {
-            const response = await fetch('https://formsubmit.co/ajax/yundu0112@gmail.com', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                body: JSON.stringify({
-                    ...formData,
-                    schedule: scheduleText,
-                    _subject: `[신청] ${formData.name}님 데이터 분석 트레이닝 신청`,
-                    _template: 'table',
-                    _captcha: 'false',
-                }),
-            });
-            if (response.ok) {
-                setIsSubmitted(true);
-                setFormData({ name: '', email: '', phone: '', birthdate: '', gender: '', message: '', codingLevel: 0, comment: '', location: '', education: '' });
-                setSelectedSlots(new Set());
-            } else {
-                alert("제출 중 오류가 발생했습니다. 다시 시도해주세요.");
-            }
-        } catch (error) {
-            console.error("Submission Error:", error);
-            alert("제출에 실패했습니다.");
-        }
+        if (scheduleRef.current) scheduleRef.current.value = scheduleText;
     };
 
     const toggleSlot = (dayIndex, hour) => {
@@ -56,6 +34,10 @@ const ApplyPage = () => {
         else newSlots.add(key);
         setSelectedSlots(newSlots);
     };
+
+    const nextUrl = typeof window !== 'undefined'
+        ? `${window.location.origin}/apply?submitted=true`
+        : '/apply?submitted=true';
 
     return (
         <section className="pt-32 pb-24 min-h-screen">
@@ -113,10 +95,19 @@ const ApplyPage = () => {
                     </motion.div>
                 ) : (
                     <div className="bg-dark-900 rounded-3xl border border-dark-700 p-8">
-                        <form className="space-y-8" onSubmit={handleSubmit}>
-                            <input type="text" name="_honey" style={{ display: "none" }} />
+                        <form
+                            action="https://formsubmit.co/yundu0112@gmail.com"
+                            method="POST"
+                            onSubmit={handlePreSubmit}
+                            className="space-y-8"
+                        >
+                            <input type="hidden" name="_next" value={nextUrl} />
                             <input type="hidden" name="_captcha" value="false" />
-                            <input type="hidden" name="schedule_slots" value={JSON.stringify([...selectedSlots])} />
+                            <input type="hidden" name="_template" value="table" />
+                            <input type="hidden" name="_subject" value={`[신청] ${formData.name}님 데이터 분석 트레이닝 신청`} />
+                            <input type="text" name="_honey" style={{ display: "none" }} />
+                            <input type="hidden" name="schedule" ref={scheduleRef} />
+                            <input type="hidden" name="coding_level" value={formData.codingLevel} />
 
                             {/* Basic Info */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -154,7 +145,7 @@ const ApplyPage = () => {
                                             </button>
                                         ))}
                                     </div>
-                                    <input type="hidden" name="gender" value={formData.gender} required />
+                                    <input type="hidden" name="gender" value={formData.gender} />
                                 </div>
                                 <div className="space-y-2 md:col-span-2">
                                     <label className="text-sm font-bold text-dark-200">이메일</label>
@@ -238,7 +229,6 @@ const ApplyPage = () => {
                                         </div>
                                     ))}
                                 </div>
-                                <input type="hidden" name="coding_level" value={formData.codingLevel} />
                             </div>
 
                             {/* Message & Comments */}
