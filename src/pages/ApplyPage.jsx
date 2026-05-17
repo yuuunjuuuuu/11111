@@ -15,7 +15,12 @@ const ApplyPage = () => {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit = async (e) => {
+    const encode = (data) =>
+        Object.entries(data)
+            .map(([k, v]) => encodeURIComponent(k) + '=' + encodeURIComponent(v))
+            .join('&');
+
+    const handleSubmit = (e) => {
         e.preventDefault();
 
         const scheduleText = Array.from(selectedSlots).map(slot => {
@@ -24,24 +29,17 @@ const ApplyPage = () => {
         }).sort((a, b) => a.dayIdx !== b.dayIdx ? a.dayIdx - b.dayIdx : a.hour - b.hour)
             .map(item => item.label).join(', ') || "선택된 시간 없음";
 
-        const data = new FormData();
-        data.append('form-name', 'apply');
-        Object.entries(formData).forEach(([key, value]) => data.append(key, value));
-        data.append('schedule', scheduleText);
-
-        try {
-            const response = await fetch('/', { method: 'POST', body: data });
-            if (response.ok) {
+        fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: encode({ 'form-name': 'apply', ...formData, schedule: scheduleText }),
+        })
+            .then(() => {
                 setIsSubmitted(true);
                 setFormData({ name: '', email: '', phone: '', birthdate: '', gender: '', message: '', codingLevel: 0, comment: '', location: '', education: '' });
                 setSelectedSlots(new Set());
-            } else {
-                alert("제출 중 오류가 발생했습니다. 다시 시도해주세요.");
-            }
-        } catch (error) {
-            console.error("Submission Error:", error);
-            alert("제출에 실패했습니다.");
-        }
+            })
+            .catch(() => alert("제출에 실패했습니다. 다시 시도해주세요."));
     };
 
     const toggleSlot = (dayIndex, hour) => {
