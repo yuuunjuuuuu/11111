@@ -8,47 +8,47 @@ const Curriculum = () => {
     const weeks = [
         {
             id: 0,
-            title: "Week 1 | Python & Exploratory Data Analysis (EDA)",
+            title: "Week 1 | 파이썬 & 탐색적 데이터 분석(EDA)",
             icon: Code,
             details: [
-                "Development Environment Setup (Anaconda, Jupyter, Git)",
-                "pandas 기반 데이터 처리 (Dataframe Manipulation)",
-                "Data Cleaning & Preprocessing",
-                "Visualization with Matplotlib & Seaborn"
+                "개발 환경 설정 (Anaconda, Jupyter, Git)",
+                "pandas 기반 데이터 처리 (데이터프레임 다루기)",
+                "데이터 클리닝 및 전처리",
+                "Matplotlib & Seaborn을 활용한 시각화"
             ]
         },
         {
             id: 1,
-            title: "Week 2 | Statistical Analysis",
+            title: "Week 2 | 통계 분석",
             icon: BarChart,
             details: [
-                "Probability & Basic Statistics Concepts",
-                "Hypothesis Testing (t-test, ANOVA)",
-                "Correlation & Regression Analysis",
-                "데이터 기반 Insight 도출 실습"
+                "확률과 기초 통계 개념",
+                "가설 검정 (t-검정, 분산분석)",
+                "상관관계 및 회귀분석",
+                "데이터 기반 인사이트 도출 실습"
             ]
         },
         {
             id: 2,
-            title: "Week 3 | Machine Learning",
+            title: "Week 3 | 머신러닝",
             icon: Brain,
             details: [
-                "Supervised vs Unsupervised Learning 이해",
-                "Classification & Prediction Models (Decision Tree, Random Forest)",
-                "Clustering (K-Means)",
-                "Model Evaluation & Feature Engineering"
+                "지도학습과 비지도학습 이해",
+                "분류 및 예측 모델 (의사결정나무, 랜덤포레스트)",
+                "군집분석 (K-Means)",
+                "모델 평가 및 특성 공학"
             ]
         },
         {
             id: 3,
-            title: "Week 4 | Capstone Project",
+            title: "Week 4 | 캡스톤 프로젝트",
             icon: FolderGit2,
             details: [
-                "Problem Definition (분석 주제 선정)",
-                "Data Collection & Processing (실데이터 활용)",
-                "Modeling & Interpretation",
-                "Final Report & Presentation",
-                "GitHub Portfolio 구축"
+                "문제 정의 (분석 주제 선정)",
+                "데이터 수집 및 처리 (실데이터 활용)",
+                "모델링 및 결과 해석",
+                "최종 보고서 및 발표",
+                "GitHub 포트폴리오 구축"
             ]
         }
     ];
