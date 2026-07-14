@@ -30,7 +30,7 @@ const Hero = () => {
                         className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-dark-800 border border-dark-700 text-primary-400 font-bold text-sm mb-8 hover:border-primary-500 transition-colors cursor-default"
                     >
                         <span className="w-2 h-2 rounded-full bg-primary-500 animate-pulse"></span>
-                        Research-based Pilot Program (Free)
+                        Research-based Pilot Program (5만원)
                     </motion.div>
 
                     <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-[1.2] mb-8 font-sans tracking-tight word-keep-all drop-shadow-2xl">

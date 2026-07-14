@@ -9,8 +9,8 @@ const FAQ = () => {
             answer: "네, 가능합니다. 프로그래밍 기초부터 시작하여 실무 데이터 분석까지 단계별로 진행됩니다."
         },
         {
-            question: "왜 무료인가요?",
-            answer: "본 과정은 멘토의 신규 집필 도서 <데이터 뜯어보기>의 연구 목적 파일럿 프로그램입니다. 수강료 대신, 수업 과정에서의 솔직한 피드백과 데이터를 제공해주시는 조건으로 전액 무료로 운영됩니다."
+            question: "수강료는 어떻게 되나요?",
+            answer: "본 프로그램은 소정의 참가비(5만원)를 받고 진행됩니다."
         },
         {
             question: "직장인이라 시간이 부족한데 괜찮을까요?",
@@ -53,8 +53,8 @@ const FAQ = () => {
                         </div>
                         <div className="relative z-10">
                             <h3 className="text-white font-bold text-lg mb-1">Cost</h3>
-                            <p className="text-primary-400 font-bold text-sm">Free (Pilot)</p>
-                            <p className="text-dark-500 text-xs mt-1">연구 목적 전액 무료</p>
+                            <p className="text-primary-400 font-bold text-sm">50,000원</p>
+                            <p className="text-dark-500 text-xs mt-1">소정의 참가비</p>
                         </div>
                     </div>
                 </div>
