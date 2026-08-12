@@ -10,7 +10,7 @@ const FAQ = () => {
         },
         {
             question: "수강료는 어떻게 되나요?",
-            answer: "멘토의 신규 집필 도서 <데이터 뜯어보기> 제작 과정에서 도움을 받고 있으며, 진지하게 참여하고 싶은 분들을 위해 소정의 참가비를 받고 있습니다. 1차 수업 시작 시 5만원을 받을 예정입니다."
+            answer: "멘토의 신규 집필 도서 <데이터 뜯어보기> 제작 과정에서 도움을 받고 있으며, 진지하게 참여하고 싶은 분들을 위해 소정의 참가비를 받고 있습니다. 신청 시 바로 결제하는 것이 아니라, 오리엔테이션(OT) 진행 후 5만원을 받을 예정입니다."
         },
         {
             question: "직장인이라 시간이 부족한데 괜찮을까요?",
@@ -54,7 +54,7 @@ const FAQ = () => {
                         <div className="relative z-10">
                             <h3 className="text-white font-bold text-lg mb-1">Cost</h3>
                             <p className="text-primary-400 font-bold text-sm">50,000원</p>
-                            <p className="text-dark-500 text-xs mt-1">소정의 참가비</p>
+                            <p className="text-dark-500 text-xs mt-1">OT 진행 후 결제</p>
                         </div>
                     </div>
                 </div>

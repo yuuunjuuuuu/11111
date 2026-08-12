@@ -100,7 +100,7 @@ const Application = () => {
                     </h2>
                     <p className="text-lg text-dark-200 max-w-2xl mx-auto word-keep-all mb-10 leading-relaxed">
                         가장 빠르게 데이터 역량을 기르는 방법.<br />
-                        지금 <strong>소정의 참가비(5만원)</strong>로 지원하세요.
+                        지금 바로 지원하세요. <strong>참가비(5만원)는 OT 진행 후에 결제</strong>하시면 됩니다.
                     </p>
 
                     <motion.button
